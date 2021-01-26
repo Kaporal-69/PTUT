@@ -1,5 +1,5 @@
 <template>
-  <Greeting></Greeting>
+  <Navbar></Navbar>
 </template>
 
 <script>

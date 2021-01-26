@@ -4,7 +4,6 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "maxmind/geoip": "dev-master",
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
@@ -13,6 +12,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
+        "maxmind/geoip": "^1.1",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.2.*",
@@ -39,6 +39,7 @@
         "symfony/twig-bundle": "^5.2",
         "symfony/validator": "5.2.*",
         "symfony/web-link": "5.2.*",
+        "symfony/webpack-encore-bundle": "^1.9",
         "symfony/yaml": "5.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"

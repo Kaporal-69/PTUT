@@ -11,6 +11,9 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
+import 'materialize-css/dist/css/materialize.min.css';
+import 'materialize-css/dist/js/materialize.min';
+
 import Vue from 'vue'
 import App from './Components/App.vue'
 

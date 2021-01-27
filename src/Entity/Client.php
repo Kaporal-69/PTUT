@@ -20,24 +20,14 @@ class Client
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mail;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
-
-    /**
      * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="client")
      */
     private $commandes;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $user;
 
 
     public function __construct()
@@ -49,43 +39,7 @@ class Client
     {
         return $this->id;
     }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|Commande[]
      */
@@ -112,6 +66,28 @@ class Client
                 $commande->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setClient(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getClient() !== $this) {
+            $user->setClient($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

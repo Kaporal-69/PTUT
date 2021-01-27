@@ -18,64 +18,18 @@ class Producteur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mail;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $password;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $site;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="producteur", cascade={"persist", "remove"})
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): self
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
     }
 
     public function getSite(): ?string
@@ -86,6 +40,28 @@ class Producteur
     public function setSite(?string $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setProducteur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getProducteur() !== $this) {
+            $user->setProducteur($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }

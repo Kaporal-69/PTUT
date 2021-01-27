@@ -30,19 +30,31 @@ class Restaurateur
     private $plats;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurateur")
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="retaurateur", cascade={"persist", "remove"})
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurateurEmetteur")
      */
     private $commandes;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, mappedBy="retaurateur", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurateurEmetteur")
      */
-    private $user;
+    private $commandesPassees;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurateurDestinataire")
+     */
+    private $commandesRecues;
 
     public function __construct()
     {
         $this->plats = new ArrayCollection();
         $this->commandes = new ArrayCollection();
+        $this->commandesPassees = new ArrayCollection();
+        $this->commandesRecues = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,6 +152,66 @@ class Restaurateur
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandesPassees(): Collection
+    {
+        return $this->commandesPassees;
+    }
+
+    public function addCommandesPassee(Commande $commandesPassee): self
+    {
+        if (!$this->commandesPassees->contains($commandesPassee)) {
+            $this->commandesPassees[] = $commandesPassee;
+            $commandesPassee->setRestaurateurEmetteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandesPassee(Commande $commandesPassee): self
+    {
+        if ($this->commandesPassees->removeElement($commandesPassee)) {
+            // set the owning side to null (unless already changed)
+            if ($commandesPassee->getRestaurateurEmetteur() === $this) {
+                $commandesPassee->setRestaurateurEmetteur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commande[]
+     */
+    public function getCommandesRecues(): Collection
+    {
+        return $this->commandesRecues;
+    }
+
+    public function addCommandesRecue(Commande $commandesRecue): self
+    {
+        if (!$this->commandesRecues->contains($commandesRecue)) {
+            $this->commandesRecues[] = $commandesRecue;
+            $commandesRecue->setRestaurateurDestinataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommandesRecue(Commande $commandesRecue): self
+    {
+        if ($this->commandesRecues->removeElement($commandesRecue)) {
+            // set the owning side to null (unless already changed)
+            if ($commandesRecue->getRestaurateurDestinataire() === $this) {
+                $commandesRecue->setRestaurateurDestinataire(null);
+            }
+        }
 
         return $this;
     }

@@ -25,11 +25,6 @@ class Commande
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Restaurateur::class, inversedBy="commandes")
-     */
-    private $restaurateur;
-
-    /**
      * @ORM\OneToMany(targetEntity=LigneCommande::class, mappedBy="commande")
      */
     private $ligneCommandes;
@@ -43,6 +38,26 @@ class Commande
      * @ORM\Column(type="integer")
      */
     private $etatCommande;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $typeCommande;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurateur::class, inversedBy="commandesPassees")
+     */
+    private $restaurateurEmetteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurateur::class, inversedBy="commandesRecues")
+     */
+    private $restaurateurDestinataire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Producteur::class, inversedBy="commandes")
+     */
+    private $producteur;
 
     public function __construct()
     {
@@ -65,19 +80,7 @@ class Commande
 
         return $this;
     }
-
-    public function getRestaurateur(): ?restaurateur
-    {
-        return $this->restaurateur;
-    }
-
-    public function setRestaurateur(?restaurateur $restaurateur): self
-    {
-        $this->restaurateur = $restaurateur;
-
-        return $this;
-    }
-
+    
     /**
      * @return Collection|LigneCommande[]
      */
@@ -128,6 +131,54 @@ class Commande
     public function setEtatCommande(int $etatCommande): self
     {
         $this->etatCommande = $etatCommande;
+
+        return $this;
+    }
+
+    public function getTypeCommande(): ?int
+    {
+        return $this->typeCommande;
+    }
+
+    public function setTypeCommande(int $typeCommande): self
+    {
+        $this->typeCommande = $typeCommande;
+
+        return $this;
+    }
+
+    public function getRestaurateurEmetteur(): ?Restaurateur
+    {
+        return $this->restaurateurEmetteur;
+    }
+
+    public function setRestaurateurEmetteur(?Restaurateur $restaurateurEmetteur): self
+    {
+        $this->restaurateurEmetteur = $restaurateurEmetteur;
+
+        return $this;
+    }
+
+    public function getRestaurateurDestinataire(): ?Restaurateur
+    {
+        return $this->restaurateurDestinataire;
+    }
+
+    public function setRestaurateurDestinataire(?Restaurateur $restaurateurDestinataire): self
+    {
+        $this->restaurateurDestinataire = $restaurateurDestinataire;
+
+        return $this;
+    }
+
+    public function getProducteur(): ?Producteur
+    {
+        return $this->producteur;
+    }
+
+    public function setProducteur(?Producteur $producteur): self
+    {
+        $this->producteur = $producteur;
 
         return $this;
     }

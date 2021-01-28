@@ -37,11 +37,6 @@ class Restaurateur
     /**
      * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurateurEmetteur")
      */
-    private $commandes;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="restaurateurEmetteur")
-     */
     private $commandesPassees;
 
     /**
@@ -98,36 +93,6 @@ class Restaurateur
             // set the owning side to null (unless already changed)
             if ($plat->getRestaurateur() === $this) {
                 $plat->setRestaurateur(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commande[]
-     */
-    public function getCommandes(): Collection
-    {
-        return $this->commandes;
-    }
-
-    public function addCommande(Commande $commande): self
-    {
-        if (!$this->commandes->contains($commande)) {
-            $this->commandes[] = $commande;
-            $commande->setRestaurateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommande(Commande $commande): self
-    {
-        if ($this->commandes->removeElement($commande)) {
-            // set the owning side to null (unless already changed)
-            if ($commande->getRestaurateur() === $this) {
-                $commande->setRestaurateur(null);
             }
         }
 

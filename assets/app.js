@@ -15,6 +15,18 @@ import 'materialize-css/dist/css/materialize.min.css';
 import 'materialize-css/dist/js/materialize.min';
 
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import App from './Components/App.vue'
+import Search from './Components/Search.vue'
+
+Vue.use(VueRouter);
+
+export default new VueRouter({
+    mode: "history",
+    routes: [
+      { path: "/search", component: Search },
+      { path: "*", redirect: "/search" }
+    ]
+  });
 
 new Vue({ render: h => h(App) }).$mount('#app')

@@ -19,6 +19,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "axios": "^0.21.1",
         "materialize-css": "^1.0.0-rc.2",
         "vue-router": "^3.5.1",
         "yarn": "^1.22.10"

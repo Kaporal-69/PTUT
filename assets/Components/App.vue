@@ -3,7 +3,7 @@
   <nav class="green lighten-3">
     <Navbar />
   </nav>
-  <Search />  
+  <router-view></router-view>
 </div>
 </template>
 
@@ -14,7 +14,7 @@
   export default {
     components: {
       Navbar,
-      Search,
+      Search
     },
   }
 </script>

@@ -18,15 +18,16 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './Components/App.vue'
 import Search from './Components/Search.vue'
+import LoginForm from './Components/LoginForm.vue'
+
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+export const router = new VueRouter({
     mode: "history",
     routes: [
-      { path: "/search", component: Search },
-      { path: "*", redirect: "/search" }
-    ]
+      { path: "/login", component: LoginForm },
+      { path: "/search", component: Search }    ]
   });
 
-new Vue({ render: h => h(App) }).$mount('#app')
+new Vue({ router, render: h => h(App) }).$mount('#app')

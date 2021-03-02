@@ -5,7 +5,7 @@
         <div class="card" v-for="producteur in producteurs" v-bind:key="producteur.nom">
             <div class="card-image" >
                 <a href="#">
-                    <img :src="producteur.image" style="width:15%; float: left;">
+                    <img :src="producteur.image" style="width:15%; float:left;">
                 </a> 
                 <div class="card-content" style="line-height:35px; margin-left:15%;">
                     <h5>{{producteur.nom}}</h5>

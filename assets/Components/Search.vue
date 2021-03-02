@@ -5,8 +5,6 @@
             <input type="text" v-model="search" placeholder="Search ..."/>
         </div>
         <SearchBanner/>
-        <SearchRestaurant/>
-        <SearchProducteur/>
     </div>
 </template>
 
@@ -21,8 +19,10 @@ export default {
      SearchProducteur,
      SearchBanner
     },
-    data: {
-    search: '',
+    data() {
+        return {
+            search: '',
+        }
     }
     
 }

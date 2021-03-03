@@ -1,14 +1,12 @@
 <template>
-    <div style="float:left; margin-top:50px; margin-left:15px;">
+    <div style="float:left; margin-top:50px; margin-left:12px;">
         <h6>Selectionnez</h6>
-        <button v-on:click="showR=true, showP=false" id="b-restaurant" >Restaurant</button>
-        <button v-on:click="showP=true, showR=false" id="b-producteur">Producteur</button>
-        <button v-on:click="showP=true, showR=true" id="b-producteur">Tout</button>
+        <button v-on:click="showR=true, showP=false, showAll=false" id="b-restaurant" >Restaurant</button>
+        <button v-on:click="showP=true, showR=false, showAll=false" id="b-producteur">Producteur</button>
+        <button v-on:click="showAll=true" id="b-all">Tout</button>
 
-        <div style="float:right;">
-            <SearchRestaurant v-show="showR"> </SearchRestaurant>
-            <SearchProducteur v-show="showP"></SearchProducteur>
-        </div>
+        <SearchRestaurant v-show="showR || showAll"> </SearchRestaurant>
+        <SearchProducteur v-show="showP || showAll"></SearchProducteur>
     </div>
 </template>
 
@@ -24,7 +22,8 @@ export default {
     data(){
         return{
             showR: false,
-            showP: false
+            showP: false,
+            showAll: true
         }
     }
 }

@@ -6,10 +6,17 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ApiResource(
+ *      normalizationContext={"groups"={"user:read"}},
+ *      denormalizationContext={"groups"={"user:write"}}
+ * )
  */
 class User implements UserInterface
 {
@@ -17,16 +24,19 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("user:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Groups({"user:read", "user:write"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("user:read")
      */
     private $roles = [];
 
@@ -37,17 +47,26 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Groups("user:write")
+     * @SerializedName("password")
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\OneToOne(targetEntity=Restaurateur::class, inversedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
      */
     private $retaurateur;
 
     /**
      * @ORM\OneToOne(targetEntity=Client::class, inversedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
      */
     private $client;
 
     /**
      * @ORM\OneToOne(targetEntity=Producteur::class, inversedBy="user", cascade={"persist", "remove"})
+     * @Groups("user:read")
      */
     private $producteur;
 
@@ -108,6 +127,18 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): string
+    {
+        return (string) $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

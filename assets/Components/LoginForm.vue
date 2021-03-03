@@ -37,8 +37,9 @@
             handleSubmit() {
                 this.isLoading = true;
                 this.error = '';
+                var token = '';
                 axios
-                    .post('/login', {
+                    .post('/api/login', {
                         email: this.email,
                         password: this.password
                     })
@@ -47,10 +48,14 @@
                         //this.$emit('user-authenticated', userUri);
                         //this.email = '';
                         //this.password = '';
+                        token = response.data.token;
+                        // router.go('/accueil')
                     }).catch(error => {
-                        console.log(error.response.data);
+                        console.log(error);
                     }).finally(() => {
                         this.isLoading = false;
+                        localStorage.setItem('user-token', token);
+                        this.$router.push('/accueil')
                     })
             },
         },

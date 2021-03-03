@@ -11,12 +11,14 @@
   import Navbar from './Navbar';
   import Search from './Search';
   import Accueil from './Accueil';
+  import Dashboard from './Dashboard';
 
   export default {
     components: {
       Navbar,
       Search,
-      Accueil
+      Accueil,
+      Dashboard
     },
   }
 </script>

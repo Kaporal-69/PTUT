@@ -20,6 +20,7 @@ import App from './Components/App.vue'
 import Search from './Components/Search.vue'
 import LoginForm from './Components/LoginForm.vue'
 import Accueil from './Components/Accueil.vue'
+import Dashboard from './Components/Dashboard.vue'
 
 
 Vue.use(VueRouter);
@@ -29,7 +30,9 @@ export const router = new VueRouter({
     routes: [
       { path: "/login", component: LoginForm },
       { path: "/search", component: Search },
-      { path: "/accueil", component: Accueil }    ]
+      { path: "/accueil", component: Accueil },
+      { path: "/dashboard", component: Dashboard }
+    ]
   });
 
 new Vue({ router, render: h => h(App) }).$mount('#app')

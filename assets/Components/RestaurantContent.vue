@@ -64,6 +64,6 @@
     .card {
         height: 350px;
         width: 350px;
-        margin: .5rem 0em 1rem 1.65em;
+        margin: .5em 0em 1em 1.65em;
     }
 </style>

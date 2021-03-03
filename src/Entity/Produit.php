@@ -25,7 +25,7 @@ class Produit
     private $nom;
 
     /**
-     * @ORM\ManyToMany(targetEntity=producteur::class)
+     * @ORM\ManyToMany(targetEntity=Producteur::class)
      */
     private $id_producteur;
 

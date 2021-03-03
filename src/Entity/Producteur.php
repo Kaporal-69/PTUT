@@ -7,6 +7,22 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
+$connect = new PDO("mysql:host=localhost;dbname=ptut", "root", "Admin");
+$received_data = json_decode(file_get_contents("php://input"));
+$data = array();
+
+if($received_data->action == 'fetchall')
+{
+    $query ="SELECT * FROM producteur, restaurateur";
+    $statement = $connect->prepare($query);
+    $statement->execute();
+    while($row = $statement->fetch(PDO::FETCH_ASSOC))
+    {
+        $data[] = $row;
+    }
+    echo json_encode($data);
+}
 /**
  * @ORM\Entity(repositoryClass=ProducteurRepository::class)
  */

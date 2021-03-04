@@ -69,5 +69,11 @@
                     })
             },
         },
+        beforeMount() {
+            console.log(localStorage.getItem('user-token'));
+            if(localStorage.getItem('user-token') && localStorage.getItem('user-token') != '') {
+                this.$router.push('/accueil')
+            }
+        }
     }
 </script>

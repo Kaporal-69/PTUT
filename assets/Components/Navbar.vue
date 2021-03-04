@@ -1,5 +1,5 @@
 <template>
-  <nav class="green lighten-3">
+  <nav class="green lighten-3" role="navigation">
     <div class="nav-wrapper">
       <a href="/accueil" class="brand-logo">Logo</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">

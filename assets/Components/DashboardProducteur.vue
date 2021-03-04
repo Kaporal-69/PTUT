@@ -7,7 +7,7 @@
                     <h1 class="title">Producteur</h1>
                     <div class="content">
                         <div style="text-align: left">
-                                <img :src="producteur.image" style="width:15%;">
+                                <img :src="producteur.image" style="width:15%;" :alt="'Image du producteur'">
                         </div>
                         <p>
                             {{producteur.nom}}
@@ -49,7 +49,7 @@ export default {
             return {
                 producteur: 
                     {
-                        nom: "EasyProduit",
+                        nom: "Producteur",
                         adresse: "rue du bonheur",
                         description: "ici une description",
                         image: image

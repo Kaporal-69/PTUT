@@ -5,7 +5,7 @@
             <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
                 <div class="card-image">
                     <a href="#">
-                        <img :src="restaurant.image">
+                        <img :src="restaurant.image" :alt="'Image du restaurant'">
                     </a>
                 </div>
                 <div class="card-content">

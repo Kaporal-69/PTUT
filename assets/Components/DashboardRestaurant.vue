@@ -7,7 +7,7 @@
                     <h1 class="title">Mon Restaurant</h1>
                     <div class="content">
                         <div style="text-align: left">
-                                <img :src="restaurant.image" style="width:15%;">
+                                <img :src="restaurant.image" style="width:15%;" :alt="'Image du restaurant'">
                         </div>
                         <p>
                             {{restaurant.nom}}

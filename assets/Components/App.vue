@@ -16,13 +16,15 @@
   import Search from './Search';
   import Accueil from './Accueil';
   import Dashboard from './Dashboard';
+  import AjoutForm from './AjoutForm';
 
   export default {
     components: {
       Navbar,
       Search,
       Accueil,
-      Dashboard
+      Dashboard,
+      AjoutForm
     },
   }
 </script>

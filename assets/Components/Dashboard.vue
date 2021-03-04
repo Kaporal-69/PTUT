@@ -1,5 +1,6 @@
 <template>
     <div class="dashboard">
+        <title>Tableau de bord</title>
         <DashboardRestaurant/>
     </div>
 </template>

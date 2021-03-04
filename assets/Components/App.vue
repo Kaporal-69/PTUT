@@ -3,7 +3,9 @@
   <nav class="green lighten-3">
     <Navbar />
   </nav>
+  <main role="main">
   <router-view></router-view>
+  </main>
 </div>
 </template>
 

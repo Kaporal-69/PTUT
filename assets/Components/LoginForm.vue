@@ -1,17 +1,19 @@
 <template>
     <form v-on:submit.prevent="handleSubmit">
+        <title>Connexion</title>
         <div v-if="error" class="alert alert-danger">
             {{ error }}
         </div>
+        <p style="color:red;">Les champs suivi d'un (*) sont obligatoires</p>
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+            <label for="exampleInputEmail1">Email address*</label>
             <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="Enter email">
+                   aria-describedby="emailHelp" placeholder="Enter email" required>
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+            <label for="exampleInputPassword1">Password*</label>
             <input type="password" v-model="password" class="form-control"
-                   id="exampleInputPassword1" placeholder="Password">
+                   id="exampleInputPassword1" placeholder="Password" required>
         </div>
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">

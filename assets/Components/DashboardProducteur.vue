@@ -1,5 +1,6 @@
 <template>
     <div class="producteur">
+        <title>Tableau de bord: Producteur</title>
         <div class="row">
             <div class="col s6">
                 <div class="card">

@@ -1,6 +1,6 @@
 <template>
     <div id="restaurant">
-        <h3>Restaurants à proximité</h3>
+        <h1>Restaurants à proximité</h1>
         <div class="restaurant-container">
             <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
                 <div class="card-image">

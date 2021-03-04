@@ -1,6 +1,6 @@
 <template>
 <div id="restaurant" style="float:right;">
-    <h3>Liste de Restaurant</h3>
+    <h1>Liste de Restaurant</h1>
     <div class="restaurant-container">
         <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
             <div class="card-image" >

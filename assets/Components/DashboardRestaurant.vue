@@ -1,5 +1,6 @@
 <template>
     <div class="mon-restaurant">
+        <title>Tableau de bord: Restaurant</title>
         <div class="row">
             <div class="col s6">
                 <div class="card">

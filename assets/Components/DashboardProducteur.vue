@@ -27,7 +27,7 @@
                         <h1 class="title">Mes Produits</h1>
                         <div class="card" v-for="produit in produits" v-bind:key="produit.nom">
                             <div style="text-align: left">
-                                <img :src="produit.image" style="width:15%;">
+                                <img :src="produit.image" style="width:15%;" :alt="'Image du produit'">
                                 <span>
                                     {{produit.nom}}
                                 </span>

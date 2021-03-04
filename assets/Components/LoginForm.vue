@@ -6,18 +6,14 @@
             {{ error }}
         </div>
         <div class="form-group">
-<<<<<<< HEAD
             <label for="exampleInputEmail1">Adresse Email*</label>
-=======
-            <label for="exampleInputEmail1">Adresse Email</label>
->>>>>>> cd6e832c515abe6b997fd549c7b627806ef4efee
             <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="votre adresse ici" autocomplete="on">
+                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre adresse ici" autocomplete="on">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Mot de passe*</label>
             <input type="password" v-model="password" class="form-control"
-                   id="exampleInputPassword1" placeholder="votre mot de passe">
+                   id="exampleInputPassword1" title="Votre mot de passe" placeholder="votre mot de passe">
         </div>
         <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">Log in</button>
     </form>

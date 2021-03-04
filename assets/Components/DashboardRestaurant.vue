@@ -27,7 +27,7 @@
                         <h1 class="title">Mes Plats</h1>
                         <div class="card" v-for="plat in plats" v-bind:key="plat.nom">
                             <div style="text-align: left">
-                                <img :src="plat.image" style="width:15%;">
+                                <img :src="plat.image" style="width:15%;" :alt="'Image du plat'">
                                 <span>
                                     {{plat.nom}}
                                 </span>

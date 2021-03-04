@@ -1,6 +1,6 @@
 <template>
     <form v-on:submit.prevent="handleSubmit">
-        <div v-if="error" class="alert alert-danger">
+        <div v-show="error" class="alert alert-danger">
             {{ error }}
         </div>
         <div class="form-group">
@@ -44,18 +44,32 @@
                         password: this.password
                     })
                     .then(response => {
-                        console.log(response.data);
+                        if (response.status == 200) {
+                            token = response.data.token;
+                            this.isLoading = false;
+                            localStorage.setItem('user-token', token);
+                            this.$router.push('/accueil')
+                        } else {
+                            // console.log(response.status);
+                            this.error = response.message;
+                            console.log("error " + this.error);
+                        }
+                        
                         //this.$emit('user-authenticated', userUri);
                         //this.email = '';
                         //this.password = '';
-                        token = response.data.token;
                         // router.go('/accueil')
                     }).catch(error => {
                         console.log(error);
+                        if(error.response.status == 401) {
+                            this.error = "Nous n'avons pas pu vous identifier, veuillez vérifier votre adresse et votre mot de passe."
+                        } else {
+                            this.error = error.response.message;
+                        }
                     }).finally(() => {
                         this.isLoading = false;
-                        localStorage.setItem('user-token', token);
-                        this.$router.push('/accueil')
+                        // localStorage.setItem('user-token', token);
+                        // this.$router.push('/accueil')
                     })
             },
         },

@@ -45,9 +45,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s2 offset-s1">
+            <div class="col s4 offset-s1">
                 <a href="/dashboard" class="red-text" aria-label="Retour à la page précédente">Retour</a>
-                <a class="waves-effect waves-light btn" aria-label="Ajout un plat">Ajouter</a>
+                <button class="waves-effect waves-light btn" aria-label="Ajout un plat">Ajouter</button>
             </div>
         </div>
     </div>

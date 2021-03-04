@@ -1,12 +1,14 @@
 <template>
-<div id="appli">
-  <nav class="green lighten-3">
-    <Navbar />
-  </nav>
-  <main role="main">
-  <router-view></router-view>
-  </main>
-</div>
+  <div id="appli">
+    <header role="banner">
+      <nav class="green lighten-3">
+        <Navbar />
+      </nav>
+    </header>
+    <main role="main">
+     <router-view></router-view>
+    </main>
+  </div>
 </template>
 
 <script>

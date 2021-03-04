@@ -5,7 +5,7 @@
         <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
             <div class="card-image" >
                 <a href="#">
-                    <img :src="restaurant.image" style="width:15%; float:left">
+                    <img :src="restaurant.image" style="width:15%; float:left" :alt="'Image du restaurant'">
                 </a> 
                 <div class="card-content" style="line-height:35px; margin-left:15%;">
                     <h5>{{restaurant.nom}}</h5>

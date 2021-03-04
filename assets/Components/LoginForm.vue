@@ -6,7 +6,11 @@
             {{ error }}
         </div>
         <div class="form-group">
+<<<<<<< HEAD
             <label for="exampleInputEmail1">Adresse Email*</label>
+=======
+            <label for="exampleInputEmail1">Adresse Email</label>
+>>>>>>> cd6e832c515abe6b997fd549c7b627806ef4efee
             <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
                    aria-describedby="emailHelp" placeholder="votre adresse ici" autocomplete="on">
         </div>

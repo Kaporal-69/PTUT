@@ -5,7 +5,7 @@
             <div class="card" v-for="promotion in promotions" v-bind:key="promotion.nom">
                 <div class="card-image">
                     <a href="#">
-                        <img :src="promotion.image">
+                        <img :src="promotion.image" :alt="'Image de la promotion'">
                     </a>
                 </div>
                 <div class="card-content">

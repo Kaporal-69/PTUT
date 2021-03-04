@@ -1,39 +1,19 @@
 <template>
-<<<<<<< HEAD
-    <form v-on:submit.prevent="handleSubmit">
-        <title>Connexion</title>
-        <div v-if="error" class="alert alert-danger">
-=======
     <form v-on:submit.prevent="handleSubmit" class="login-form">
+        <title>Connexion</title>
+        <p style="color:red;">Les champs suivi d'un (*) sont obligatoires</p>
         <div v-show="error" class="alert alert-danger" style="color:red;">
->>>>>>> c31cc4e961f1f61e3516e8263a8cba4bff1bda92
             {{ error }}
         </div>
-        <p style="color:red;">Les champs suivi d'un (*) sont obligatoires</p>
         <div class="form-group">
-<<<<<<< HEAD
-            <label for="exampleInputEmail1">Email address*</label>
+            <label for="exampleInputEmail1">Adresse Email*</label>
             <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="Enter email" required>
+                   aria-describedby="emailHelp" placeholder="votre adresse ici" autocomplete="on">
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password*</label>
-            <input type="password" v-model="password" class="form-control"
-                   id="exampleInputPassword1" placeholder="Password" required>
-        </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">I like cheese</label>
-=======
-            <label for="exampleInputEmail1">Adresse Email</label>
-            <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" placeholder="votre adresse ici">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Mot de passe</label>
+            <label for="exampleInputPassword1">Mot de passe*</label>
             <input type="password" v-model="password" class="form-control"
                    id="exampleInputPassword1" placeholder="votre mot de passe">
->>>>>>> c31cc4e961f1f61e3516e8263a8cba4bff1bda92
         </div>
         <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">Log in</button>
     </form>

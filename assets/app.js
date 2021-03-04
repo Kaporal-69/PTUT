@@ -37,4 +37,10 @@ export const router = new VueRouter({
     ]
   });
 
-new Vue({ router, render: h => h(App) }).$mount('#app')
+new Vue({ 
+  router, 
+  render: h => h(App),
+  created: function() {
+    document.documentElement.setAttribute('lang', 'fr');
+  }
+ }).$mount('#app')

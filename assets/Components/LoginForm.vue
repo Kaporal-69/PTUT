@@ -1,11 +1,17 @@
 <template>
+<<<<<<< HEAD
     <form v-on:submit.prevent="handleSubmit">
         <title>Connexion</title>
         <div v-if="error" class="alert alert-danger">
+=======
+    <form v-on:submit.prevent="handleSubmit" class="login-form">
+        <div v-show="error" class="alert alert-danger" style="color:red;">
+>>>>>>> c31cc4e961f1f61e3516e8263a8cba4bff1bda92
             {{ error }}
         </div>
         <p style="color:red;">Les champs suivi d'un (*) sont obligatoires</p>
         <div class="form-group">
+<<<<<<< HEAD
             <label for="exampleInputEmail1">Email address*</label>
             <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
                    aria-describedby="emailHelp" placeholder="Enter email" required>
@@ -18,6 +24,16 @@
         <div class="form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">I like cheese</label>
+=======
+            <label for="exampleInputEmail1">Adresse Email</label>
+            <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
+                   aria-describedby="emailHelp" placeholder="votre adresse ici">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mot de passe</label>
+            <input type="password" v-model="password" class="form-control"
+                   id="exampleInputPassword1" placeholder="votre mot de passe">
+>>>>>>> c31cc4e961f1f61e3516e8263a8cba4bff1bda92
         </div>
         <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">Log in</button>
     </form>
@@ -46,20 +62,40 @@
                         password: this.password
                     })
                     .then(response => {
-                        console.log(response.data);
+                        if (response.status == 200) {
+                            token = response.data.token;
+                            this.isLoading = false;
+                            localStorage.setItem('user-token', token);
+                            this.$router.push('/accueil')
+                        } else {
+                            // console.log(response.status);
+                            this.error = response.message;
+                            console.log("error " + this.error);
+                        }
+                        
                         //this.$emit('user-authenticated', userUri);
                         //this.email = '';
                         //this.password = '';
-                        token = response.data.token;
                         // router.go('/accueil')
                     }).catch(error => {
                         console.log(error);
+                        if(error.response.status == 401) {
+                            this.error = "Nous n'avons pas pu vous identifier, veuillez vérifier votre adresse et votre mot de passe."
+                        } else {
+                            this.error = error.response.message;
+                        }
                     }).finally(() => {
                         this.isLoading = false;
-                        localStorage.setItem('user-token', token);
-                        this.$router.push('/accueil')
+                        // localStorage.setItem('user-token', token);
+                        // this.$router.push('/accueil')
                     })
             },
         },
+        beforeMount() {
+            console.log(localStorage.getItem('user-token'));
+            if(localStorage.getItem('user-token') && localStorage.getItem('user-token') != '') {
+                this.$router.push('/accueil')
+            }
+        }
     }
 </script>

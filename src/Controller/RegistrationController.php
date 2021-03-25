@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
+use App\Entity\Producteur;
+use App\Entity\Restaurateur;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\UserLoginAutenticatorAuthenticator;
@@ -15,38 +18,55 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/api/register",  options = { "expose" = true }, name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserLoginAutenticatorAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserLoginAutenticatorAuthenticator $authenticator)
     {
-        $user = new User();
+        $user = new User();   
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+     
+        try {
+            $user->setEmail($request->request->get('email'));
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
+                    $request->request->get('plainPassword')
                 )
             );
+            switch($request->request->get('userType')) {
+                case 1:
+                    $userType = new Client();
+                    $userType->setAdresse($request->request->get('adress'));
+                    $userType->setCodePostal($request->request->get('zipCode'));
+                    $userType->setVille($request->request->get('city'));
+                    $user->setClient($userType);
+                    break;
+                case 2:
+                    $userType = new Producteur();
+                    $userType->setAdresse($request->request->get('adress'));
+                    $userType->setCodePostal($request->request->get('zipCode'));
+                    $userType->setVille($request->request->get('city'));
+                    $user->setProducteur($userType);
+                    break;
+                case 3:
+                    $userType = new Restaurateur();
+                    $userType->setAdresse($request->request->get('adress'));
+                    $userType->setCodePostal($request->request->get('zipCode'));
+                    $userType->setVille($request->request->get('city'));
+                    $user->setRetaurateur($userType);
+                    break;
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($userType);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator,
-                'main' // firewall name in security.yaml
-            );
+            return $this->json('success');
+        } catch (\Exception $e) {
+            return $this->json("une erreur s'est produite: " . $e->getMessage(),500);
         }
-
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
     }
 }

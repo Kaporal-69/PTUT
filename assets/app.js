@@ -19,6 +19,7 @@ import VueRouter from 'vue-router'
 import App from './Components/App.vue'
 import Search from './Components/Search.vue'
 import LoginForm from './Components/LoginForm.vue'
+import RegisterForm from './Components/RegisterForm.vue'
 import Accueil from './Components/Accueil.vue'
 import Dashboard from './Components/Dashboard.vue'
 import AjoutForm from './Components/AjoutForm.vue'
@@ -30,6 +31,7 @@ export const router = new VueRouter({
     mode: "history",
     routes: [
       { path: "/login", component: LoginForm },
+      { path: "/register", component: RegisterForm },
       { path: "/search", component: Search },
       { path: "/accueil", component: Accueil },
       { path: "/dashboard", component: Dashboard },

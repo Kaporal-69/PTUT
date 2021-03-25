@@ -8,21 +8,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
-$connect = new PDO("mysql:host=localhost;dbname=ptut", "root", "Admin");
-$received_data = json_decode(file_get_contents("php://input"));
-$data = array();
+// $connect = new PDO("mysql:host=localhost;dbname=ptut", "root", "Admin");
+// $received_data = json_decode(file_get_contents("php://input"));
+// $data = array();
 
-if($received_data->action == 'fetchall')
-{
-    $query ="SELECT * FROM producteur, restaurateur";
-    $statement = $connect->prepare($query);
-    $statement->execute();
-    while($row = $statement->fetch(PDO::FETCH_ASSOC))
-    {
-        $data[] = $row;
-    }
-    echo json_encode($data);
-}
+// if($received_data->action == 'fetchall')
+// {
+//     $query ="SELECT * FROM producteur, restaurateur";
+//     $statement = $connect->prepare($query);
+//     $statement->execute();
+//     while($row = $statement->fetch(PDO::FETCH_ASSOC))
+//     {
+//         $data[] = $row;
+//     }
+//     echo json_encode($data);
+// }
 /**
  * @ORM\Entity(repositoryClass=ProducteurRepository::class)
  */
@@ -54,6 +54,16 @@ class Producteur
      * @ORM\Column(type="string", length=255)
      */
     private $adresse;
+
+        /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $codePostal;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $ville;
 
     public function __construct()
     {
@@ -137,6 +147,29 @@ class Producteur
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+    public function getCodePostal(): ?int
+    {
+        return $this->codePostal;
+    }
+
+    public function setCodePostal(?int $codePostal): self
+    {
+        $this->codePostal = $codePostal;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?string $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }

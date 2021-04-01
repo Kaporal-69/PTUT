@@ -5,19 +5,21 @@
             <div class="col s6">
                 <div class="card">
                     <h1 class="title">Mon Restaurant</h1>
-                    <div class="content">
-                        <div style="text-align: left">
+                    <div class="content" style="margin-left: 1em">
+                        <div style="text-align: left;">
                                 <img :src="restaurant.image" style="width:15%;" :alt="'Image du restaurant'">
                         </div>
                         <p>
-                            {{restaurant.nom}}
+                            <b>Nom : </b>{{restaurant.nom}}
                         </p>
                         <p>
-                            {{restaurant.adresse}}
+                            <b>Adresse : </b>{{restaurant.adresse}}
                         </p>
-                        <p>
+                        <p><b>Description</b></p>
+                        <p style="margin-left: 1em">
                             {{restaurant.description}}
                         </p>
+                        <div><a class="waves-effect waves-light btn blue" href="#">Modifier</a></div>
                     </div>
                 </div>
             </div>
@@ -32,6 +34,10 @@
                                     {{plat.nom}}
                                 </span>
                             </div>
+                        </div>
+                        <div>
+                            <a class="waves-effect waves-light btn blue" href="#">Modifier un plat</a>
+                            <a class="waves-effect waves-light btn" href="/ajout">Ajouter un plat</a>
                         </div>
                     </div>
                 </div>
@@ -49,26 +55,18 @@ export default {
             return {
                 restaurant: 
                     {
-                        nom: "McDonald",
-                        adresse: "rue du bonheur",
-                        description: "ici une description",
+                        nom: "Laska",
+                        adresse: "13 Rue Terraille, 69001 Lyon",
+                        description: "Recettes végétariennes à base de produits bio midi et soir dans une salle intime et cosy aux matières brutes.",
                         image: image
                     },
                 plats: [
                     {
-                        nom: "Big Mac",
+                        nom: "Pomme de terre au four , carotte fondante et tombée d’épinards ",
                         image: image
                     },
                     {
-                        nom: "Mc Chicken",
-                        image: image
-                    },
-                    {
-                        nom: "CBO",
-                        image: image
-                    },
-                    {
-                        nom: "BEEF BBQ",
+                        nom: "Wok de légumes au cacahuètes à l’asiatique et crème de chou-fleur",
                         image: image
                     }
                 ]

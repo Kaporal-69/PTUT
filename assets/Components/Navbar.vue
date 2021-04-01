@@ -1,7 +1,7 @@
 <template>
   <nav class="green darken-1">
     <div class="nav-wrapper">
-      <a href="/accueil" class="brand-logo">Logo</a>
+      <a href="/accueil" class="brand-logo">Click'n'Fresh</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <!-- <li><a href="">Panier</a></li> -->
         <li><a href="/search">Rechercher</a></li>
@@ -9,8 +9,6 @@
         <li v-if="!isLoggedIn"><a href="/login">Se connecter</a></li>
         <li v-else><a v-on:click="logout()" >Se déconnecter</a></li>
         <li v-if="!isLoggedIn"><a href="/register">S'inscrire</a></li>
-
-
       </ul>
       <ul id="nav-mobile" class="right hide-on-large-only">
         <li><a href="/search"><i class="material-icons">search</i></a></li>

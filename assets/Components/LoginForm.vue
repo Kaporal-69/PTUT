@@ -46,6 +46,7 @@
                             token = response.data.token;
                             this.isLoading = false;
                             localStorage.setItem('user-token', token);
+                            this.$router.go()
                             this.$router.push('/accueil')
                         } else {
                             // console.log(response.status);
@@ -73,7 +74,7 @@
         },
         beforeMount() {
             console.log(localStorage.getItem('user-token'));
-            if(localStorage.getItem('user-token') && localStorage.getItem('user-token') != '') {
+            if(localStorage.getItem('user-token') && localStorage.getItem('user-token') != '' && localStorage.getItem('user-token') != 'null') {
                 this.$router.push('/accueil')
             }
         }

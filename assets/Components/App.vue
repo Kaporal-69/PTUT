@@ -2,11 +2,11 @@
   <div id="appli">
     <header role="banner">
       <nav class="green lighten-3">
-        <Navbar />
+        <Navbar :isLoggedIn="this.isLoggedIn" :key="$route.fullPath"/>
       </nav>
     </header>
     <main role="main">
-     <router-view></router-view>
+     <router-view @updateParent="handleUpdate"></router-view>
     </main>
   </div>
 </template>
@@ -19,6 +19,11 @@
   import AjoutForm from './AjoutForm';
 
   export default {
+    computed: {
+      isLoggedIn() {
+        return  localStorage.getItem('user-token') != null;
+      }
+    },
     components: {
       Navbar,
       Search,

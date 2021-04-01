@@ -5,9 +5,11 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <!-- <li><a href="">Panier</a></li> -->
         <li><a href="/search">Rechercher</a></li>
-        <li><a href="/dashboard">Mon Compte</a></li>
+        <li><a v-if="isLoggedIn" href="/dashboard">Mon Compte</a></li>
         <li v-if="!isLoggedIn"><a href="/login">Se connecter</a></li>
         <li v-else><a v-on:click="logout()" >Se déconnecter</a></li>
+        <li v-if="!isLoggedIn"><a href="/register">S'inscrire</a></li>
+
 
       </ul>
       <ul id="nav-mobile" class="right hide-on-large-only">
@@ -23,24 +25,35 @@
 <script>
 
   export default {
+    props: {
+      isLoggedIn: false
+    },
     data: function() {
       return {
         greeting: "Hello world",
-        isLoggedIn: false
       };
     },
     methods: {
       logout() {
-        localStorage.getItem('user-token') == '';
-        this.isLoggedIn = false;
+        localStorage.removeItem('user-token');
+        this.$router.go();
+     }
+    },
+    watch: {
+      isLoggedIn: {
+        // the callback will be called immediately after the start of the observation
+        immediate: true, 
+        handler (val, oldVal) {
+          console.log(this.isLoggedIn);
+        }
       }
     },
     beforeMount() {
-        if(localStorage.getItem('user-token') === "undefined") {
-            this.isLoggedIn = false;
-        } else {
-           this.isLoggedIn = true;
-        }
+        // if(localStorage.getItem('user-token') === "null") {
+        //     this.isLoggedIn = false;
+        // } else {
+        //    this.isLoggedIn = true;
+        // }
     }
   };
 </script>

@@ -19,40 +19,57 @@
 
 <script>
     import image from '../images/placeholder.png'
+    import axios from 'axios';
+
     export default {
         name: "RestaurantContent",
         data() {
             return {
                 restaurants: [
-                    {
-                        nom: "Restau 1",
-                        adresse: "222 rue aaaa",
-                        image: image
-                    },
-                    {
-                        nom: "Restau 2",
-                        adresse: "223 rue bbbb",
-                        image: image
-                    },
-                    {
-                        nom: "Restau 3",
-                        adresse: "224 rue cccc",
-                        image: image
-                    },
-                    {
-                        nom: "Restau 4",
-                        adresse: "223 rue bbbb",
-                        image: image
-                    },
-                    {
-                        nom: "Restau 5",
-                        adresse: "223 rue bbbb",
-                        image: image
-                    }
                 ]
             }
+        },
+        beforeCreate() {
+            axios.get('/api/restaurateurs', {
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            let resto = null;
+                            let restaurateurs = [];
+                            for(let i = 0; i<response.data["hydra:member"].length; i++) {
+                                resto = response.data["hydra:member"][i];
+                                let restoData = {
+                                    nom: resto.id,
+                                    adresse: resto.adresse + " " + resto.codePostal + " " + resto.ville,
+                                    image: image
+                                }
+                                restaurateurs.push(restoData);
+                            }
+                            this.restaurants = restaurateurs;
+                        } else {
+                            // console.log(response.status);
+                            this.error = response.message;
+                            console.log("error " + this.error);
+                        }
+                        
+                        //this.$emit('user-authenticated', userUri);
+                        //this.email = '';
+                        //this.password = '';
+                        // router.go('/accueil')
+                    }).catch(error => {
+                        console.log(error);
+                        if(error.response.status == 401) {
+                            this.error = "Nous n'avons pas pu vous identifier, veuillez vérifier votre adresse et votre mot de passe."
+                        } else {
+                            this.error = error.response.message;
+                        }
+                    }).finally(() => {
+                        this.isLoading = false;
+                        // localStorage.setItem('user-token', token);
+                        // this.$router.push('/accueil')
+                    })
+            },
         }
-    }
 </script>
 
 <style scoped>

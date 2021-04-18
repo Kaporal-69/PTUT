@@ -25,14 +25,14 @@ class Produit
     private $nom;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Producteur::class)
-     */
-    private $id_producteur;
-
-    /**
      * @ORM\ManyToOne(targetEntity=CategorieProduit::class, inversedBy="produits")
      */
     private $CategorieProduit;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Producteur::class, inversedBy="produits")
+     */
+    private $producteur;
 
     public function __construct()
     {
@@ -56,30 +56,6 @@ class Produit
         return $this;
     }
 
-    /**
-     * @return Collection|producteur[]
-     */
-    public function getIdProducteur(): Collection
-    {
-        return $this->id_producteur;
-    }
-
-    public function addIdProducteur(producteur $idProducteur): self
-    {
-        if (!$this->id_producteur->contains($idProducteur)) {
-            $this->id_producteur[] = $idProducteur;
-        }
-
-        return $this;
-    }
-
-    public function removeIdProducteur(producteur $idProducteur): self
-    {
-        $this->id_producteur->removeElement($idProducteur);
-
-        return $this;
-    }
-
     public function getCategorieProduit(): ?CategorieProduit
     {
         return $this->CategorieProduit;
@@ -88,6 +64,18 @@ class Produit
     public function setCategorieProduit(?CategorieProduit $CategorieProduit): self
     {
         $this->CategorieProduit = $CategorieProduit;
+
+        return $this;
+    }
+
+    public function getProducteur(): ?Producteur
+    {
+        return $this->producteur;
+    }
+
+    public function setProducteur(?Producteur $producteur): self
+    {
+        $this->producteur = $producteur;
 
         return $this;
     }

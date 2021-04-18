@@ -65,9 +65,15 @@ class Producteur
      */
     private $ville;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Produit::class, mappedBy="producteur")
+     */
+    private $produits;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,6 +176,36 @@ class Producteur
     public function setVille(?string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Produit[]
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setProducteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getProducteur() === $this) {
+                $produit->setProducteur(null);
+            }
+        }
 
         return $this;
     }

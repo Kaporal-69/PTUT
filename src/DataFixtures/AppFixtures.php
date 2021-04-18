@@ -3,7 +3,9 @@
 namespace App\DataFixtures;
 
 use App\Entity\Client;
+use App\Entity\Plat;
 use App\Entity\Producteur;
+use App\Entity\Produit;
 use App\Entity\Restaurateur;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -67,5 +69,31 @@ class AppFixtures extends Fixture
             $manager->flush();
             $rotation ++;
         }
+
+        $nomPlats = ["Pizza", "Kebab", "Spaghetti Bolognèse", "Salade César", "Sushis", "Boeuf Bourguignon", "Truite Braisée", "Ravioles", "Escargots", "Poulet Bressois"];
+        $restaurants = $manager->getRepository(Restaurateur::class)->findAll();
+        foreach($restaurants as $restaurant) {
+            for ($i=0; $i < 3; $i++) { 
+                $plat = new Plat();
+                $plat->setNom($nomPlats[random_int(0, count($nomPlats)-1)]);
+                $restaurant->addPlat($plat);
+                $manager->persist($plat);
+            }
+            $manager->persist($restaurant);
+        }
+        $manager->flush();
+
+        $nomProduits = ["Salade", "Betteraves", "Poulet", "Boeuf", "Carottes", "Fraises", "Pommes de Terre", "Abricots", "Oranges", "Poireaux"];
+        $producteurs = $manager->getRepository(Producteur::class)->findAll();
+        foreach($producteurs as $producteur) {
+            for ($i=0; $i < 3; $i++) { 
+                $produit = new Produit();
+                $produit->setNom($nomProduits[random_int(0, count($nomPlats)-1)]);
+                $producteur->addProduit($produit);
+                $manager->persist($produit);
+            }
+            $manager->persist($producteur);
+        }
+        $manager->flush();
     }
 }

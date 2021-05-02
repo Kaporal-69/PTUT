@@ -61,6 +61,11 @@ class Restaurateur
      */
     private $ville;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nomEtablissement;
+
     public function __construct()
     {
         $this->plats = new ArrayCollection();
@@ -230,6 +235,18 @@ class Restaurateur
     public function setVille(?string $ville): self
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getNomEtablissement(): ?string
+    {
+        return $this->nomEtablissement;
+    }
+
+    public function setNomEtablissement(string $nomEtablissement): self
+    {
+        $this->nomEtablissement = $nomEtablissement;
 
         return $this;
     }

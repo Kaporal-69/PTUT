@@ -29,7 +29,7 @@
                         <h1 class="title">Mes Plats</h1>
                         <div class="card" v-for="plat in plats" v-bind:key="plat.nom">
                             <div style="text-align: left">
-                                <img :src="plat.image" style="width:15%;" :alt="'Image du plat'">
+                                <img :src="'../../assets/images/plats/'+plat.nom+'.png'" style="width:15%;" :alt="'Image du plat'">
                                 <span>
                                     {{plat.nom}}
                                 </span>
@@ -47,7 +47,9 @@
 </template>
 
 <script>
-import image from '../images/placeholder.png'
+import image from '../images/placeholder.png';
+import axios from 'axios';
+
 
 export default {
     name: "DashboardRestaurant",
@@ -71,6 +73,57 @@ export default {
                     }
                 ]
             }
+        },
+    methods: {
+        getImagePlat(nom) {
+            return require('../images/plats/'+nom+'.png');
         }
+    },
+    beforeCreate() {
+            if(localStorage.getItem('user-token')) {
+                const token = localStorage.getItem('user-token');
+                    axios.get('/api/dashboard/data', {
+                        headers: { Authorization: `Bearer ${token}`}
+                    })
+                    .then(response => {
+                        if (response.status == 200) {
+                            let resto = null;
+                            let restaurateurs = [];
+                            console.log(response.data);
+                            this.restaurant.adresse = response.data.resto.adresse;
+                            this.plats = response.data.resto.plats;
+                            //     let restoData = {
+                            //         nom: resto.id,
+                            //         adresse: resto.adresse + " " + resto.codePostal + " " + resto.ville,
+                            //         image: image
+                            //     }
+                            //     restaurateurs.push(restoData);
+                            // this.restaurant = restaurateurs;
+                        } else {
+                            // console.log(response.status);
+                            this.error = response.message;
+                            console.log("error " + this.error);
+                        }
+                        
+                        //this.$emit('user-authenticated', userUri);
+                        //this.email = '';
+                        //this.password = '';
+                        // router.go('/accueil')
+                    }).catch(error => {
+                        console.log(error);
+                        if(error.response.status == 401) {
+                            this.error = "Nous n'avons pas pu vous identifier, veuillez vérifier votre adresse et votre mot de passe."
+                        } else {
+                            this.error = error.response.message;
+                        }
+                    }).finally(() => {
+                        this.isLoading = false;
+                        // localStorage.setItem('user-token', token);
+                        // this.$router.push('/accueil')
+                    })
+            } else {
+                this.router.push('/login');
+            }
+            },
 }
 </script>

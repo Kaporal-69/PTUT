@@ -70,6 +70,11 @@ class Producteur
      */
     private $produits;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nomEtablissement;
+
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
@@ -206,6 +211,18 @@ class Producteur
                 $produit->setProducteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNomEtablissement(): ?string
+    {
+        return $this->nomEtablissement;
+    }
+
+    public function setNomEtablissement(string $nomEtablissement): self
+    {
+        $this->nomEtablissement = $nomEtablissement;
 
         return $this;
     }

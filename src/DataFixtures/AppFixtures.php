@@ -24,6 +24,28 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $dataRestaurants = [
+            0 => [
+                'nom' => 'Scratch Restaurant',
+                'adresse' => '2 rue des Fontanettes',
+            ],
+            1 => [
+                'nom' => 'Cosy Cook',
+                'adresse' => '27 boulevard Paul Bert',
+            ],
+            2 => [
+                'nom' => 'Scratch Restaurant',
+                'adresse' => '2 rue des Fontanettes',
+            ],
+            3 => [
+                'nom' => 'Scratch Restaurant',
+                'adresse' => '2 rue des Fontanettes',
+            ],
+            4 => [
+                'nom' => 'Scratch Restaurant',
+                'adresse' => '2 rue des Fontanettes',
+            ]
+        ];
         $faker = Factory::create('fr_FR');
         $users = [];
         for ($i=0; $i < 20; $i++) { 

@@ -36,12 +36,19 @@
         },
         mounted() {
             var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+            var MapboxGeocoder = require('mapbox-gl-geocoder');
  
             mapboxgl.accessToken = this.accessToken;
             var map = new mapboxgl.Map({
             container: 'mapContainer',
             style: 'mapbox://styles/mapbox/streets-v11',
             });
+            
+            map.addControl(new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl
+            }, "top-right")
+            );
 
             const nav = new mapboxgl.NavigationControl();
             map.addControl(nav, "top-right");
@@ -58,6 +65,7 @@
             });
 
         map.addControl(geolocate, "top-right")
+        
         },
         beforeCreate() {
             axios.get('/api/restaurateurs', {

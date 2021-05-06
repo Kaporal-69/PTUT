@@ -1,14 +1,15 @@
 <template>
-<div id="mapContainer" class="basemap">
+<!-- <div id="mapContainer" class="basemap"> -->
+<div class="restaurant-content">
     <h1>Restaurants à proximité</h1>
-    <!---<div id="restaurant">
+    -<div id="restaurant">
         
         <div class="restaurant-container">
             <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
                 <div class="card-image">
-                    <a href="#">
+                    <div @click="onClickImage(restaurant.id)">
                         <img :src="restaurant.image" :alt="'Image du restaurant'">
-                    </a>
+                    </div>
                 </div>
                 <div class="card-content">
                     <span class="card-title">{{restaurant.nom}}</span>
@@ -16,7 +17,7 @@
                 </div>
             </div>
         </div>
-    </div>-->
+    </div>
 </div>
     
 </template>
@@ -31,41 +32,46 @@
         data: function() {
             return {
                 restaurants: [],
-                accessToken: 'pk.eyJ1Ijoia2Fwb3JhbCIsImEiOiJja29jbmcyNWkwamlwMnZuMWlwN3R3N2ZzIn0.66WNy78D3_ie4xrrKKGxpg'
+                // accessToken: 'pk.eyJ1Ijoia2Fwb3JhbCIsImEiOiJja29jbmcyNWkwamlwMnZuMWlwN3R3N2ZzIn0.66WNy78D3_ie4xrrKKGxpg'
             };
         },
-        mounted() {
-            var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-            var MapboxGeocoder = require('mapbox-gl-geocoder');
- 
-            mapboxgl.accessToken = this.accessToken;
-            var map = new mapboxgl.Map({
-            container: 'mapContainer',
-            style: 'mapbox://styles/mapbox/streets-v11',
-            });
-            
-            map.addControl(new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            mapboxgl: mapboxgl
-            }, "top-right")
-            );
+        // mounted() {
+        // var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+        // var MapboxGeocoder = require('mapbox-gl-geocoder');
 
-            const nav = new mapboxgl.NavigationControl();
-            map.addControl(nav, "top-right");
-
-            const marker = new mapboxgl.Marker()
-            .setLngLat([103.811279, 1.345399])
-            .addTo(map);
-
-            const geolocate = new mapboxgl.GeolocateControl({
-            positionOptions: {
-                enableHighAccuracy: true
-            },
-            trackUserLocation: true
-            });
-
-        map.addControl(geolocate, "top-right")
+        // mapboxgl.accessToken = this.accessToken;
+        // var map = new mapboxgl.Map({
+        // container: 'mapContainer',
+        // style: 'mapbox://styles/mapbox/streets-v11',
+        // });
         
+        // map.addControl(new MapboxGeocoder({
+        // accessToken: mapboxgl.accessToken,
+        // mapboxgl: mapboxgl
+        // }, "top-right")
+        // );
+
+        //     const nav = new mapboxgl.NavigationControl();
+        //     map.addControl(nav, "top-right");
+
+        //     const marker = new mapboxgl.Marker()
+        //     .setLngLat([103.811279, 1.345399])
+        //     .addTo(map);
+
+        //     const geolocate = new mapboxgl.GeolocateControl({
+        //     positionOptions: {
+        //         enableHighAccuracy: true
+        //     },
+        //     trackUserLocation: true
+        //     });
+
+        // map.addControl(geolocate, "top-right")
+        // },
+        methods: {
+            onClickImage(id) {
+                // console.log(id);
+                this.$router.push({name: 'restaurant', params: {id: id}});
+            }
         },
         beforeCreate() {
             axios.get('/api/restaurateurs', {
@@ -77,11 +83,13 @@
                             for(let i = 0; i<response.data["hydra:member"].length; i++) {
                                 resto = response.data["hydra:member"][i];
                                 let restoData = {
-                                    nom: resto.id,
+                                    id: resto.id,
+                                    nom: resto.nomEtablissement,
                                     adresse: resto.adresse + " " + resto.codePostal + " " + resto.ville,
                                     image: image
                                 }
                                 restaurateurs.push(restoData);
+                                console.log(restaurateurs);
                             }
                             this.restaurants = restaurateurs;
                         } else {

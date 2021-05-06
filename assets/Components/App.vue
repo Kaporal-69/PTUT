@@ -17,6 +17,7 @@
   import Accueil from './Accueil';
   import Dashboard from './Dashboard';
   import AjoutForm from './AjoutForm';
+  import Detail from './Detail';
 
   export default {
     computed: {
@@ -29,7 +30,8 @@
       Search,
       Accueil,
       Dashboard,
-      AjoutForm
+      AjoutForm,
+      Detail
     },
   }
 </script>

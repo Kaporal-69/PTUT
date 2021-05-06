@@ -8,6 +8,7 @@
         <a class="carousel-item" href="#four!">4</a>
         <a class="carousel-item" href="#five!">5</a>
       </div> -->
+      <Map/>
       <RestaurantContent/>
       <NouveauteContent/>
       <PromotionContent/>
@@ -18,6 +19,7 @@
     import RestaurantContent from './RestaurantContent';
     import NouveauteContent from './NouveauteContent';
     import PromotionContent from './PromotionContent';
+    import Map from './Map';
     import M from 'materialize-css';
 
   export default {
@@ -25,7 +27,8 @@
     components: {
       RestaurantContent,
       NouveauteContent,
-      PromotionContent
+      PromotionContent,
+      Map
     },
     data: {
       mounted() {

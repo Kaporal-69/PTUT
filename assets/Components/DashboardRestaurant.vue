@@ -57,6 +57,7 @@ export default {
             return {
                 restaurant: 
                     {
+                        id: 1,
                         nom: "Laska",
                         adresse: "13 Rue Terraille, 69001 Lyon",
                         description: "Recettes végétariennes à base de produits bio midi et soir dans une salle intime et cosy aux matières brutes.",

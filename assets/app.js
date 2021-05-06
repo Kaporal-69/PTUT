@@ -23,6 +23,7 @@ import RegisterForm from './Components/RegisterForm.vue'
 import Accueil from './Components/Accueil.vue'
 import Dashboard from './Components/Dashboard.vue'
 import AjoutForm from './Components/AjoutForm.vue'
+import Detail from './Components/Detail.vue'
 
 
 Vue.use(VueRouter);
@@ -35,7 +36,8 @@ export const router = new VueRouter({
       { path: "/search", component: Search },
       { path: "/accueil", component: Accueil },
       { path: "/dashboard", component: Dashboard },
-      { path: "/ajout", component: AjoutForm }
+      { path: "/ajout", component: AjoutForm },
+      { path: '/restaurant/:id', name: 'restaurant', component: Detail }
     ]
   });
 

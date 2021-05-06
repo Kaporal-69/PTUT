@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/login/client", name="app_login")
+     * @Route("/api/login", name="app_login")
      */
     public function loginClient(AuthenticationUtils $authenticationUtils): Response
     {

@@ -1,6 +1,6 @@
 <template>
     <div id="accueil-content">
-      <title>Acceuil</title>
+      <title>Accueil</title>
       <!-- <div class="carousel">
         <a class="carousel-item" href="#one!">1</a>
         <a class="carousel-item" href="#two!">2</a>

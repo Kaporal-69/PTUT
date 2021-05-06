@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\CategoriePlat;
 use App\Entity\Client;
 use App\Entity\Plat;
 use App\Entity\Producteur;
@@ -67,7 +68,12 @@ class AppFixtures extends Fixture
             $users[] = $user;
             $manager->flush();
         }
-
+        for ($i=0; $i < 3; $i++) { 
+            $categorie = new CategoriePlat();
+            $categorie->setNom("categorie " . $i);
+            $manager->persist($categorie);
+            $manager->flush();
+        }
         $rotation = 0;
         foreach($users as $user) {
             switch($rotation) {
@@ -76,9 +82,11 @@ class AppFixtures extends Fixture
                     break;
                 case 1:
                     $userType = new Restaurateur();
+                    $userType->setNomEtablissement('nom');
                     break;
                 case 2:
                     $userType = new Producteur();
+                    $userType->setNomEtablissement('nom');
                     $rotation = -1;
                     break;
             }
@@ -98,6 +106,7 @@ class AppFixtures extends Fixture
             for ($i=0; $i < 3; $i++) { 
                 $plat = new Plat();
                 $plat->setNom($nomPlats[random_int(0, count($nomPlats)-1)]);
+                $plat->setAllergies('aucune');
                 $restaurant->addPlat($plat);
                 $manager->persist($plat);
             }

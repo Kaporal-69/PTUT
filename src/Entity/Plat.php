@@ -29,6 +29,26 @@ class Plat
      */
     private $restaurateur;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Allergies;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=CategoriePlat::class, inversedBy="plats")
+     */
+    private $categorie;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $prix;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -54,6 +74,54 @@ class Plat
     public function setRestaurateur(?Restaurateur $restaurateur): self
     {
         $this->restaurateur = $restaurateur;
+
+        return $this;
+    }
+
+    public function getAllergies(): ?string
+    {
+        return $this->Allergies;
+    }
+
+    public function setAllergies(string $Allergies): self
+    {
+        $this->Allergies = $Allergies;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?CategoriePlat
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?CategoriePlat $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?float $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

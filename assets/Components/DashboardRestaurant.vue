@@ -29,7 +29,7 @@
                         <h1 class="title">Mes Plats</h1>
                         <div class="card" v-for="plat in plats" v-bind:key="plat.nom">
                             <div style="text-align: left">
-                                <img :src="'../../assets/images/plats/'+plat.nom+'.png'" style="width:15%;" :alt="'Image du plat'">
+                                <img :src="plat.image" style="width:15%;" :alt="'Image du plat'">
                                 <span>
                                     {{plat.nom}}
                                 </span>
@@ -75,11 +75,11 @@ export default {
             }
         },
     methods: {
-        getImagePlat(nom) {
-            return require('../images/plats/'+nom+'.png');
-        }
+        // getImagePlat(nom) {
+        //     return require('../images/plats/'+nom+'.png');
+        // }
     },
-    beforeCreate() {
+    mounted() {
             if(localStorage.getItem('user-token')) {
                 const token = localStorage.getItem('user-token');
                     axios.get('/api/dashboard/data', {
@@ -92,13 +92,9 @@ export default {
                             console.log(response.data);
                             this.restaurant.adresse = response.data.resto.adresse;
                             this.plats = response.data.resto.plats;
-                            //     let restoData = {
-                            //         nom: resto.id,
-                            //         adresse: resto.adresse + " " + resto.codePostal + " " + resto.ville,
-                            //         image: image
-                            //     }
-                            //     restaurateurs.push(restoData);
-                            // this.restaurant = restaurateurs;
+                            for (let index = 0; index < this.plats.length; index++) {
+                                this.plats[index].image = image;
+                            }
                         } else {
                             // console.log(response.status);
                             this.error = response.message;

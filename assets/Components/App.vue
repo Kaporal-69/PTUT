@@ -6,7 +6,7 @@
       </nav>
     </header>
     <main role="main">
-     <router-view @updateParent="handleUpdate"></router-view>
+     <router-view></router-view>
     </main>
   </div>
 </template>

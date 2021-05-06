@@ -1,6 +1,8 @@
 <template>
-    <div id="restaurant">
-        <h1>Restaurants à proximité</h1>
+<div id="mapContainer" class="basemap">
+    <h1>Restaurants à proximité</h1>
+    <!---<div id="restaurant">
+        
         <div class="restaurant-container">
             <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
                 <div class="card-image">
@@ -14,20 +16,48 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
+</div>
+    
 </template>
 
 <script>
     import image from '../images/placeholder.png'
     import axios from 'axios';
+    //import mapboxgl from "mapbox-gl";
 
     export default {
         name: "RestaurantContent",
-        data() {
+        data: function() {
             return {
-                restaurants: [
-                ]
-            }
+                restaurants: [],
+                accessToken: 'pk.eyJ1Ijoia2Fwb3JhbCIsImEiOiJja29jbmcyNWkwamlwMnZuMWlwN3R3N2ZzIn0.66WNy78D3_ie4xrrKKGxpg'
+            };
+        },
+        mounted() {
+            var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+ 
+            mapboxgl.accessToken = this.accessToken;
+            var map = new mapboxgl.Map({
+            container: 'mapContainer',
+            style: 'mapbox://styles/mapbox/streets-v11',
+            });
+
+            const nav = new mapboxgl.NavigationControl();
+            map.addControl(nav, "top-right");
+
+            const marker = new mapboxgl.Marker()
+            .setLngLat([103.811279, 1.345399])
+            .addTo(map);
+
+            const geolocate = new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: true
+            });
+
+        map.addControl(geolocate, "top-right")
         },
         beforeCreate() {
             axios.get('/api/restaurateurs', {
@@ -83,4 +113,12 @@
         width: 350px;
         margin: .5em 0em 1em 1.65em;
     }
+
+    .basemap {
+        width: 500px;
+        height: 500px;
+        top: 35px;
+        left: 10px;
+    }
+   
 </style>

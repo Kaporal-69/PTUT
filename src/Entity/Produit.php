@@ -34,6 +34,11 @@ class Produit
      */
     private $producteur;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $prix;
+
     public function __construct()
     {
         $this->id_producteur = new ArrayCollection();
@@ -76,6 +81,18 @@ class Produit
     public function setProducteur(?Producteur $producteur): self
     {
         $this->producteur = $producteur;
+
+        return $this;
+    }
+
+    public function getPrix(): ?float
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(float $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

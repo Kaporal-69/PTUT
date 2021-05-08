@@ -26,7 +26,8 @@
             <div class="col s6">
                 <div class="card">
                     <div class="mes-items">
-                        <h1 class="title">Mes items</h1>
+                        <h1 class="title" v-if="typeEtablissement == 'Restaurant'">Mes Plats</h1>
+                        <h1 class="title" v-else>Mes Produits</h1>
                         <div class="card" v-for="plat in items" v-bind:key="plat.nom">
                             <div style="text-align: left">
                                 <img :src="plat.image" style="width:15%;" :alt="'Image du plat'">
@@ -89,8 +90,6 @@ export default {
                     })
                     .then(response => {
                         if (response.status == 200) {
-                            let resto = null;
-                            let restaurateurs = [];
                             console.log(response.data);
                             this.typeEtablissement = response.data.typeEtablissement;
                             this.etablissement.adresse = response.data.etablissement.adresse;
@@ -98,16 +97,9 @@ export default {
                             for (let index = 0; index < this.items.length; index++) {
                                 this.items[index].image = image;
                             }
-                        } else {
-                            // console.log(response.status);
-                            this.error = response.message;
-                            console.log("error " + this.error);
-                        }
-                        
-                        //this.$emit('user-authenticated', userUri);
-                        //this.email = '';
-                        //this.password = '';
-                        // router.go('/accueil')
+                        } else if (response.status == 401) {
+                           this.$router.push('/login')
+                        } 
                     }).catch(error => {
                         console.log(error);
                         if(error.response.status == 401) {
@@ -117,8 +109,6 @@ export default {
                         }
                     }).finally(() => {
                         this.isLoading = false;
-                        // localStorage.setItem('user-token', token);
-                        // this.$router.push('/accueil')
                     })
             } else {
                 this.router.push('/login');

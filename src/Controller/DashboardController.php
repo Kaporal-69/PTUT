@@ -21,14 +21,26 @@ class DashboardController extends AbstractController
             return $this->json("Vous n'avez pas accès à cette page.",401);
         } else {
             if($user->getRetaurateur()) {
+                $data['typeEtablissement'] = "Restaurant";
                 $resto = $user->getRetaurateur();
                 $plats = [];
                 foreach($resto->getPlats() as $plat) {
                     $plats[] = ['nom' => $plat->getNom()];
                 }
-                $data['resto']['plats'] = $plats;
-                $data['resto']['adresse'] = $resto->getAdresse() . ', ' . $resto->getCodePostal() . ', ' . $resto->getVille();
+                $data['etablissement']['items'] = $plats;
+                $data['etablissement']['adresse'] = $resto->getAdresse() . ', ' . $resto->getCodePostal() . ', ' . $resto->getVille();
                 return $this->json($data);
+            } else  if($user->getProducteur()){
+                $data['typeEtablissement'] = "Producteur";
+                $producteur = $user->getProducteur();
+                $produits = [];
+                foreach($producteur->getProduits() as $produit) {
+                    $produits[] = ['nom' => $produit->getNom()];
+                }
+                $data['etablissement']['items'] = $produits;
+                $data['etablissement']['adresse'] = $producteur->getAdresse() . ', ' . $producteur->getCodePostal() . ', ' . $producteur->getVille();
+                return $this->json($data);
+
             }
         }
     }

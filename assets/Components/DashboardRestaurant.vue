@@ -98,11 +98,12 @@ export default {
                                 this.items[index].image = image;
                             }
                         } else if (response.status == 401) {
-                           this.$router.push('/login')
+                           this.$router.push('/login');
                         } 
                     }).catch(error => {
                         console.log(error);
                         if(error.response.status == 401) {
+                            this.$router.push('/login')
                             this.error = "Nous n'avons pas pu vous identifier, veuillez vérifier votre adresse et votre mot de passe."
                         } else {
                             this.error = error.response.message;

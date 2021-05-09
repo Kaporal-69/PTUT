@@ -10,7 +10,9 @@
             <div class="total-commande">Total de votre commande : {{prixTotal(panier)}}€</div>
             <div class="actions">
                 <button class="waves-effect waves-light btn red" style="margin-right: 2px;" @click="$router.go(-1)">RETOUR</button>
-                <button class="waves-effect waves-light btn" @click="commande(true)">EFFECTUER LA COMMANDE</button>
+                <button class="waves-effect waves-light btn" @click="commande(true)">Reserver et payer sur place</button>
+                <button class="waves-effect waves-light btn green" @click="goToCheckout()">Payer par carte</button>
+
             </div>
             <div class="statut-commande" v-show="statutCommande"><span class="teal-text">Votre commande a été effecuté!</span></div>
         </div>
@@ -40,6 +42,9 @@ export default {
             var prixTotal = 0;
             panier.map(i => prixTotal += i.prix);
             return prixTotal;
+        },
+        goToCheckout() {
+            this.$router.push('/paiement');
         }
     }
 }

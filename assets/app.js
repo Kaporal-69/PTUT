@@ -25,6 +25,7 @@ import Dashboard from './Components/Dashboard.vue'
 import AjoutForm from './Components/AjoutForm.vue'
 import Detail from './Components/Detail.vue'
 import Commande from './Components/Commande.vue'
+import Paiement from './Components/Paiement.vue'
 
 
 Vue.use(VueRouter);
@@ -35,14 +36,15 @@ export const router = new VueRouter({
       { path: "/login", component: LoginForm },
       { path: "/register", component: RegisterForm },
       { path: "/search", component: Search },
-      { path: "/accueil", component: Accueil },
+      { path: "/accueil", component: Accueil, name: "accueil" },
       { path: "/dashboard", component: Dashboard },
       { path: "/ajout-plat", component: AjoutForm, name: "ajout_plat" },
       { path: "/ajout-produit", component: AjoutForm, name: "ajout_produit" },
       { path: "/edit-plat/:id", component: AjoutForm, name: "edit_plat" },
       { path: "/edit-produit/:id", component: AjoutForm, name: "edit_produit" },
       { path: '/:detail/:id', name: 'detail', component: Detail },
-      { path: "/commande", component: Commande },
+      { path: "/commande", component: Commande, name: "commande"},
+      { path: "/paiement", component: Paiement },
     ]
   });
 

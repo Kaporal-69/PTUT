@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\CategoriePlat;
+use App\Entity\CategorieProduit;
 use App\Entity\Plat;
+use App\Entity\Produit;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,7 +27,7 @@ class DashboardController extends AbstractController
                 $resto = $user->getRetaurateur();
                 $plats = [];
                 foreach($resto->getPlats() as $plat) {
-                    $plats[] = ['nom' => $plat->getNom()];
+                    $plats[] = ['nom' => $plat->getNom(), 'id' => $plat->getId()];
                 }
                 $data['etablissement']['items'] = $plats;
                 $data['etablissement']['adresse'] = $resto->getAdresse() . ', ' . $resto->getCodePostal() . ', ' . $resto->getVille();
@@ -35,7 +37,7 @@ class DashboardController extends AbstractController
                 $producteur = $user->getProducteur();
                 $produits = [];
                 foreach($producteur->getProduits() as $produit) {
-                    $produits[] = ['nom' => $produit->getNom()];
+                    $produits[] = ['nom' => $produit->getNom(), 'id' => $produit->getId()];
                 }
                 $data['etablissement']['items'] = $produits;
                 $data['etablissement']['adresse'] = $producteur->getAdresse() . ', ' . $producteur->getCodePostal() . ', ' . $producteur->getVille();
@@ -58,7 +60,11 @@ class DashboardController extends AbstractController
         } else {
             if($user->getRetaurateur()) {
                 $resto = $user->getRetaurateur();
-                $plat = new Plat();
+                if($data->id) {
+                    $plat = $entityManager->getRepository(Plat::class)->findOneById($data->id);
+                } else {
+                    $plat = new Plat();
+                }
                 $categorie = $categoryRepo->findOneById($data->category);
                 $plat->setCategorie($categorie);
                 $plat->setRestaurateur($resto);
@@ -71,6 +77,38 @@ class DashboardController extends AbstractController
                 $entityManager->persist($resto);
                 $entityManager->flush();
                 return $this->json($plat->getNom());
+            }
+        }
+    }
+
+    /**
+     * @Route("/api/produit/add",  options = { "expose" = true }, name="app_add_produit", methods= { "POST" })
+     */
+    public function addProduitToProducteur(Request $request) {
+        $user = $this->getUser();
+        $data = json_decode($request->getContent());
+        $entityManager = $this->getDoctrine()->getManager();
+        $categoryRepo = $entityManager->getRepository(CategorieProduit::class);
+        if(!$user || !$user->getProducteur()) {
+            return $this->json("Vous n'avez pas accès à cette page.",401);
+        } else {
+            if($user->getProducteur()) {
+                $prod = $user->getProducteur();
+                if($data->id) {
+                    $produit = $entityManager->getRepository(Produit::class)->findOneById($data->id);
+                } else {
+                    $produit = new Produit();
+                }
+                $categorie = $categoryRepo->findOneById($data->category);
+                $produit->setCategorieProduit($categorie);
+                $produit->setProducteur($prod);
+                $produit->setNom($data->name);
+                $produit->setPrix($data->price);
+                $entityManager->persist($categorie);
+                $entityManager->persist($produit);
+                $entityManager->persist($prod);
+                $entityManager->flush();
+                return $this->json($produit->getNom());
             }
         }
     }

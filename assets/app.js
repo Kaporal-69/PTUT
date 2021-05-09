@@ -36,7 +36,10 @@ export const router = new VueRouter({
       { path: "/search", component: Search },
       { path: "/accueil", component: Accueil },
       { path: "/dashboard", component: Dashboard },
-      { path: "/ajout", component: AjoutForm },
+      { path: "/ajout-plat", component: AjoutForm, name: "ajout_plat" },
+      { path: "/ajout-produit", component: AjoutForm, name: "ajout_produit" },
+      { path: "/edit-plat/:id", component: AjoutForm, name: "edit_plat" },
+      { path: "/edit-produit/:id", component: AjoutForm, name: "edit_produit" },
       { path: '/restaurant/:id', name: 'restaurant', component: Detail }
     ]
   });

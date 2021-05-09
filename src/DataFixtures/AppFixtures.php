@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\CategoriePlat;
+use App\Entity\CategorieProduit;
 use App\Entity\Client;
 use App\Entity\Plat;
 use App\Entity\Producteur;
@@ -73,6 +74,10 @@ class AppFixtures extends Fixture
             $categorie->setNom("categorie " . $i);
             $manager->persist($categorie);
             $manager->flush();
+            $categorie = new CategorieProduit();
+            $categorie->setNom("categorie " . $i);
+            $manager->persist($categorie);
+            $manager->flush();
         }
         $rotation = 0;
         foreach($users as $user) {
@@ -120,6 +125,7 @@ class AppFixtures extends Fixture
             for ($i=0; $i < 3; $i++) { 
                 $produit = new Produit();
                 $produit->setNom($nomProduits[random_int(0, count($nomPlats)-1)]);
+                $produit->setPrix($i*2.5);
                 $producteur->addProduit($produit);
                 $manager->persist($produit);
             }

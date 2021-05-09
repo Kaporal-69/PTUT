@@ -6,6 +6,7 @@ use App\Repository\ProducteurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 
 // $connect = new PDO("mysql:host=localhost;dbname=ptut", "root", "Admin");
@@ -25,6 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
 // }
 /**
  * @ORM\Entity(repositoryClass=ProducteurRepository::class)
+ * @ApiResource()
  */
 class Producteur
 {

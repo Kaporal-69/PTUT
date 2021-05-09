@@ -34,11 +34,13 @@
                                 <span>
                                     {{plat.nom}}
                                 </span>
+                                <router-link class="waves-effect waves-light btn blue" :to="{ name: 'edit_plat', params: { id: plat.id }}" v-if="typeEtablissement == 'Restaurant'">Modifier un plat</router-link>
+                                <router-link class="waves-effect waves-light btn blue" :to="{ name: 'edit_produit', params: { id: plat.id }}" v-else >Modifier un produit</router-link>
                             </div>
                         </div>
                         <div>
-                            <a class="waves-effect waves-light btn blue" href="#">Modifier un plat</a>
-                            <a class="waves-effect waves-light btn" href="/ajout">Ajouter un plat</a>
+                            <router-link class="waves-effect waves-light btn" :to="{ name: 'ajout_plat'}" v-if="typeEtablissement == 'Restaurant'">Ajouter un plat</router-link>
+                            <router-link class="waves-effect waves-light btn" :to="{ name: 'ajout_produit'}" v-else >Ajouter un produit</router-link>
                         </div>
                     </div>
                 </div>

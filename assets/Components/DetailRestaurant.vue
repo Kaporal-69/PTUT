@@ -9,25 +9,30 @@
             </p>
             <ul class="collection with-header">
                 <li class="collection-header"><h2>Plats</h2></li>
-                <div v-for="plat in plats" v-bind:key="plat.id">
-                    <li v-show="plat.restaurateur_id == restaurant.id" class="collection-item">
-                        <div>{{plat.nom}} - {{plat.prix}}€
-                            <div class="secondary-content">
-                                <button v-on:click="ajoutAuPanier(plat.id)" class="waves-effect waves-light btn">
-                                    <i class="material-icons">add</i>
-                                </button>
-                                {{panier.filter(pan => pan.id == plat.id).length}}
-                                <button v-on:click="supprimerDuPanier(plat.id)" class="waves-effect waves-light btn red">
-                                    <i class="material-icons">remove</i>
-                                </button>
-                            </div>
+                <li v-for="plat in plats" v-bind:key="plat.id" v-show="plat.restaurateur_id == restaurant.id" class="collection-item">
+                    <div>{{plat.nom}} - {{plat.prix}}€
+                        <div class="secondary-content">
+                            <button v-on:click="ajoutAuPanier(plat.id)" class="waves-effect waves-light btn">
+                                <i class="material-icons">add</i>
+                            </button>
+                            {{panier.filter(pan => pan.id == plat.id).length}}
+                            <button v-on:click="supprimerDuPanier(plat.id)" class="waves-effect waves-light btn red">
+                                <i class="material-icons">remove</i>
+                            </button>
                         </div>
-                    </li>
-                </div>
+                    </div>
+                </li>
             </ul>
+            <div class="total-commande">Total de votre commande : {{prixTotal(panier)}}€</div>
             <div class="commander">
-                <button class="waves-effect waves-light btn">Commander ({{panier.length}})</button>
+                <button class="waves-effect waves-light btn red" style="margin-right: 2px;" @click="$router.go(-1)">RETOUR</button>
+                <router-link
+                    to="/commande"
+                    v-show="panier.length > 0">
+                    <button class="waves-effect waves-light btn" @click="addPanierToLocalStorage(panier)">Commander ({{panier.length}})</button>
+                </router-link>
             </div>
+            <!-- <div v-show="errorMessage"><span class="red-text">Votre panier est vide!</span></div> -->
         </div>
     </div>
 </template>
@@ -41,6 +46,7 @@ export default {
     props: ['id'],
     data() {
         return {
+            errorMessage: false,
             panier: [],
             restaurant: 
                     {
@@ -53,14 +59,14 @@ export default {
             plats: [
                     {
                         id: 1,
-                        restaurateur_id: 3,
+                        restaurateur_id: 4,
                         nom: "Pomme de terre au four , carotte fondante et tombée d’épinards ",
                         prix: 12,
                         image: image
                     },
                     {
                         id: 2, 
-                        restaurateur_id: 3,
+                        restaurateur_id: 4,
                         nom: "Wok de légumes au cacahuètes à l’asiatique et crème de chou-fleur",
                         prix: 10,
                         image: image
@@ -70,6 +76,8 @@ export default {
     },
     methods: {
         ajoutAuPanier(id) {
+            if(this.errorMessage) 
+                this.errorMessage = false;
             var plat = this.plats.find(plat => plat.id == id);
             console.log(plat);
             this.panier.push(plat);
@@ -84,6 +92,21 @@ export default {
                 console.log("Suppression");
                 console.log(this.panier)
             }
+        },
+        addPanierToLocalStorage(panier) {
+            if(panier.length > 0) {
+                const parsed = JSON.stringify(panier);
+                localStorage.setItem('panier', parsed);
+            }
+            else {
+                this.errorMessage = true;
+            }
+            
+        },
+        prixTotal(panier) {
+            var prixTotal = 0;
+            panier.map(i => prixTotal += i.prix);
+            return prixTotal;
         }
     }
     // mounted() {
@@ -138,3 +161,13 @@ export default {
     // }
 }
 </script>
+
+<style scoped>
+.collection .collection-item {
+    line-height: 3;
+}
+
+.total-commande {
+    font-size: 22px;
+}
+</style>

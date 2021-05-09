@@ -2,12 +2,11 @@
 <!-- <div id="mapContainer" class="basemap"> -->
 <div class="restaurant-content">
     <h1>Restaurants à proximité</h1>
-    -<div id="restaurant">
-        
+    <div id="restaurant">
         <div class="restaurant-container">
-            <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom">
+            <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom" @click="onClickCard(restaurant.id)" style="cursor: pointer;">
                 <div class="card-image">
-                    <div @click="onClickImage(restaurant.id)">
+                    <div>
                         <img :src="restaurant.image" :alt="'Image du restaurant'">
                     </div>
                 </div>
@@ -68,7 +67,7 @@
         // map.addControl(geolocate, "top-right")
         // },
         methods: {
-            onClickImage(id) {
+            onClickCard(id) {
                 // console.log(id);
                 this.$router.push({name: 'restaurant', params: {id: id}});
             }
@@ -91,7 +90,12 @@
                                 restaurateurs.push(restoData);
                                 console.log(restaurateurs);
                             }
-                            this.restaurants = restaurateurs;
+                            //GET TOP 5 RESTAURANTS
+                            var size = 5;
+                            var items = restaurateurs.slice(0, size).map(i => {
+                                this.restaurants.push(i);
+                            })
+                            // this.restaurants = restaurateurs;
                         } else {
                             // console.log(response.status);
                             this.error = response.message;

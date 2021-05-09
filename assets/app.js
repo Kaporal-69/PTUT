@@ -24,6 +24,7 @@ import Accueil from './Components/Accueil.vue'
 import Dashboard from './Components/Dashboard.vue'
 import AjoutForm from './Components/AjoutForm.vue'
 import Detail from './Components/Detail.vue'
+import Commande from './Components/Commande.vue'
 
 
 Vue.use(VueRouter);
@@ -40,7 +41,8 @@ export const router = new VueRouter({
       { path: "/ajout-produit", component: AjoutForm, name: "ajout_produit" },
       { path: "/edit-plat/:id", component: AjoutForm, name: "edit_plat" },
       { path: "/edit-produit/:id", component: AjoutForm, name: "edit_produit" },
-      { path: '/restaurant/:id', name: 'restaurant', component: Detail }
+      { path: '/restaurant/:id', name: 'restaurant', component: Detail },
+      { path: "/commande", component: Commande },
     ]
   });
 

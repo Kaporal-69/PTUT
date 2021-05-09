@@ -4,7 +4,7 @@
     <h1>Restaurants à proximité</h1>
     <div id="restaurant">
         <div class="restaurant-container">
-            <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.nom" @click="onClickCard(restaurant.id)" style="cursor: pointer;">
+            <div class="card" v-for="restaurant in restaurants" v-bind:key="restaurant.id" @click="onClickCard(restaurant.id)" style="cursor: pointer;">
                 <div class="card-image">
                     <div>
                         <img :src="restaurant.image" :alt="'Image du restaurant'">
@@ -69,7 +69,7 @@
         methods: {
             onClickCard(id) {
                 // console.log(id);
-                this.$router.push({name: 'restaurant', params: {id: id}});
+                this.$router.push({name: 'detail', params: {id: id, detail: 'restaurant'}});
             }
         },
         beforeCreate() {

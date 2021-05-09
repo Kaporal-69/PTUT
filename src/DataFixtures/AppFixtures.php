@@ -112,6 +112,7 @@ class AppFixtures extends Fixture
                 $plat = new Plat();
                 $plat->setNom($nomPlats[random_int(0, count($nomPlats)-1)]);
                 $plat->setAllergies('aucune');
+                $plat->setPrix($i*2.5 + 5);
                 $restaurant->addPlat($plat);
                 $manager->persist($plat);
             }
@@ -125,7 +126,7 @@ class AppFixtures extends Fixture
             for ($i=0; $i < 3; $i++) { 
                 $produit = new Produit();
                 $produit->setNom($nomProduits[random_int(0, count($nomPlats)-1)]);
-                $produit->setPrix($i*2.5);
+                $produit->setPrix($i*2.5 + 5);
                 $producteur->addProduit($produit);
                 $manager->persist($produit);
             }

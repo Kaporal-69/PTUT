@@ -54,7 +54,7 @@
             <input type="password" v-model="password" class="form-control"
                    id="exampleInputPassword2" title="Votre mot de passe" placeholder="votre mot de passe">
         </div>
-        <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">Log in</button>
+        <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">S'enregistrer</button>
     </form>
 </template>  
 <script>

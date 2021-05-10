@@ -45,6 +45,7 @@ class RegistrationController extends AbstractController
                     break;
                 case 2:
                     $userType = new Producteur();
+                    $userType->setNomEtablissement($request->request->get('placeName'));
                     $userType->setAdresse($request->request->get('adress'));
                     $userType->setCodePostal($request->request->get('zipCode'));
                     $userType->setVille($request->request->get('city'));
@@ -52,6 +53,7 @@ class RegistrationController extends AbstractController
                     break;
                 case 3:
                     $userType = new Restaurateur();
+                    $userType->setNomEtablissement($request->request->get('placeName'));
                     $userType->setAdresse($request->request->get('adress'));
                     $userType->setCodePostal($request->request->get('zipCode'));
                     $userType->setVille($request->request->get('city'));

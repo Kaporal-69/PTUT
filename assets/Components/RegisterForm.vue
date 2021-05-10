@@ -19,6 +19,11 @@
             <input type="radio" id="userTypeRestaurant" name="userTypeRadio" value="3" v-model="userType"> <span>Un restaurateur</span>
             </label>
         </div>
+        <div class="form-group" v-if="userType > 1">
+            <label for="exampleInputEmail1">Nom Etablissement *</label>
+            <input type="text" v-model="placeName" class="form-control" id="exampleInputEmail1"
+                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="le nom de votre etablissement ici" autocomplete="on">
+        </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Adresse *</label>
             <input type="text" v-model="adress" class="form-control" id="exampleInputEmail1"
@@ -27,17 +32,17 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Code Postal*</label>
             <input type="text" v-model="zipCode" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre adresse ici" autocomplete="on">
+                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre code postal ici" autocomplete="on">
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Ville*</label>
             <input type="text" v-model="city" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre adresse ici" autocomplete="on">
+                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre ville ici" autocomplete="on">
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Adresse Email*</label>
             <input type="email" v-model="email" class="form-control" id="exampleInputEmail1"
-                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre adresse ici" autocomplete="on">
+                   aria-describedby="emailHelp" title="Votre Adresse" placeholder="votre adresse mail ici" autocomplete="on">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Mot de passe*</label>
@@ -47,7 +52,7 @@
          <div class="form-group">
             <label for="exampleInputPassword1">Confirmez le mot de passe*</label>
             <input type="password" v-model="password" class="form-control"
-                   id="exampleInputPassword1" title="Votre mot de passe" placeholder="votre mot de passe">
+                   id="exampleInputPassword2" title="Votre mot de passe" placeholder="votre mot de passe">
         </div>
         <button type="submit" class="btn btn-primary" v-bind:class="{ disabled: isLoading }">Log in</button>
     </form>
@@ -58,6 +63,7 @@
         name: "RegisterForm",
         data() {
             return {
+                placeName: '',
                 email: '',
                 password: '',
                 userType: '',
@@ -78,6 +84,7 @@
                 formData.append('zipCode', this.zipCode);
                 formData.append('city', this.city);
                 formData.append('userType',this.userType);
+                formData.append('placeName',this.placeName)
                 this.isLoading = true;
                 this.error = '';
                 var token = '';

@@ -137,7 +137,7 @@ export default {
     if (this.$route.name.includes("edit") && this.isResto) {
       this.edit = true;
       axios.get("/api/plats/" + this.$route.params.id).then((response) => {
-        let platData = response.data["hydra:member"];
+        let platData = response.data;
         this.name = platData.nom;
         this.description = platData.description;
         this.allergies = platData.allergies;
@@ -161,6 +161,7 @@ export default {
         category: this.category,
         price: this.price,
       };
+      console.log(data);
       const token = localStorage.getItem("user-token");
       let url = "";
       let requestOptions = {};
